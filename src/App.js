@@ -3,7 +3,12 @@ import { useReducer } from "react";
 import TotalDisplay from "./components/TotalDisplay";
 import CalcButton from "./components/CalcButton";
 import reducer, { initialState } from "./reducers";
-import { applyNumber, changeOperation } from "./actions";
+import {
+  applyNumber,
+  changeOperation,
+  clearDisplay,
+  memoryAdd,
+} from "./actions";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -16,6 +21,14 @@ function App() {
 
   const calculateOperationChange = (event) => {
     dispatch(changeOperation(event.target.value));
+  };
+
+  const resetOperationChange = () => {
+    dispatch(clearDisplay());
+  };
+
+  const handleMemoryAdd = () => {
+    dispatch(memoryAdd());
   };
 
   return (
@@ -40,7 +53,7 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"M+"} />
+              <CalcButton value={"M+"} onClick={handleMemoryAdd} />
               <CalcButton value={"MR"} />
               <CalcButton value={"MC"} />
             </div>
@@ -70,7 +83,7 @@ function App() {
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"} />
+              <CalcButton value={"CE"} onClick={resetOperationChange} />
             </div>
           </form>
         </div>
