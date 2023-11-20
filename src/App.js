@@ -3,9 +3,20 @@ import { useReducer } from "react";
 import TotalDisplay from "./components/TotalDisplay";
 import CalcButton from "./components/CalcButton";
 import reducer, { initialState } from "./reducers";
+import { applyNumber, changeOperation } from "./actions";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const clickHandler = (event) => {
+    const { value } = event.target;
+    const numberValue = Number(value);
+    dispatch(applyNumber(numberValue));
+  };
+
+  const calculateOperationChange = (event) => {
+    dispatch(changeOperation(event.target.value));
+  };
 
   return (
     <div className="App">
@@ -35,27 +46,27 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={1} />
-              <CalcButton value={2} />
-              <CalcButton value={3} />
+              <CalcButton value={1} onClick={clickHandler} />
+              <CalcButton value={2} onClick={clickHandler} />
+              <CalcButton value={3} onClick={clickHandler} />
             </div>
 
             <div className="row">
-              <CalcButton value={4} />
-              <CalcButton value={5} />
-              <CalcButton value={6} />
+              <CalcButton value={4} onClick={clickHandler} />
+              <CalcButton value={5} onClick={clickHandler} />
+              <CalcButton value={6} onClick={clickHandler} />
             </div>
 
             <div className="row">
-              <CalcButton value={7} />
-              <CalcButton value={8} />
-              <CalcButton value={9} />
+              <CalcButton value={7} onClick={clickHandler} />
+              <CalcButton value={8} onClick={clickHandler} />
+              <CalcButton value={9} onClick={clickHandler} />
             </div>
 
             <div className="row">
-              <CalcButton value={"+"} />
-              <CalcButton value={"*"} />
-              <CalcButton value={"-"} />
+              <CalcButton value={"+"} onClick={calculateOperationChange} />
+              <CalcButton value={"*"} onClick={calculateOperationChange} />
+              <CalcButton value={"-"} onClick={calculateOperationChange} />
             </div>
 
             <div className="row ce_button">
